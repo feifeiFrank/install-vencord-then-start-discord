@@ -1,10 +1,11 @@
 # Discord with Vencord Portable v0.1.0
 
-This is the first packaged release for the macOS portable launcher.
+This is the first packaged release for the portable launcher project.
 
 ## Included asset
 
 - `Discord with Vencord Portable.app.zip`
+- `Discord with Vencord Portable Windows.zip`
 
 ## What it does
 
@@ -14,15 +15,17 @@ This is the first packaged release for the macOS portable launcher.
 
 ## Requirements
 
-- macOS
+- macOS or Windows
 - Discord installed at `/Applications/Discord.app`
-- Apple Silicon (`arm64`) Mac
+- Apple Silicon (`arm64`) Mac for the macOS app bundle
+- Official Discord desktop app for Windows when using the Windows package
 
 ## Important notes
 
 - This is not a zero-setup installer
 - macOS may ask for permission before the app can modify `/Applications/Discord.app`
 - If the app is blocked, the user may need to allow the app or their terminal-equivalent app to manage app bundles
+- On Windows, the launcher script expects `git`, `node`, `pnpm`, and `go` to be installed
 - This release does not include Discord itself
 
 ## Troubleshooting
