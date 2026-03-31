@@ -25,7 +25,7 @@ Shareable macOS helper project for re-patching the official Discord app with Ven
 
 ## First run
 
-1. Clone this repo anywhere outside OneDrive or iCloud syncing folders.
+1. Clone this repo anywhere 
 2. Double-click [`run.command`](./run.command).
 3. If macOS blocks access to app bundles, grant the terminal app the required permission and run again.
 
