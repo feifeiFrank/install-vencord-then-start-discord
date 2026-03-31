@@ -1,6 +1,8 @@
-# Discord with Vencord Portable
+# Install Vencord Then Start Discord
 
-Shareable helper project for re-patching the official Discord app with Vencord before launch on macOS and Windows.
+Portable launcher project for installing or re-patching Vencord before starting the official Discord desktop app on macOS and Windows.
+
+Keywords: Vencord, Discord, install Vencord, start Discord, macOS, Windows, portable launcher.
 
 ## What this repo is for
 
@@ -8,6 +10,18 @@ Shareable helper project for re-patching the official Discord app with Vencord b
 - Rebuild from upstream sources instead of shipping your personal paths
 - Generate a portable macOS `.app` bundle for sharing
 - Provide a Windows launcher script that installs Vencord and then starts Discord
+
+## Search-friendly summary
+
+This repository is for people who want a launcher that installs Vencord, re-patches Discord after Discord updates, and then starts Discord automatically.
+
+It is especially useful if you were searching for terms like:
+
+- install Vencord then start Discord
+- Vencord auto install before Discord launch
+- Discord update removed Vencord
+- Vencord launcher for macOS
+- Vencord launcher for Windows
 
 ## What this repo is not
 
