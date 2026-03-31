@@ -60,7 +60,12 @@ It is especially useful if you were searching for terms like:
 
 1. Clone this repo anywhere outside OneDrive or iCloud syncing folders.
 2. Double-click [`run.command`](./run.command).
-3. If macOS blocks access to app bundles, grant the terminal app the required permission and run again.
+3. If macOS says the app cannot be opened because Apple cannot verify it:
+4. Open `System Settings` -> `Privacy & Security`
+5. Scroll to the Security section
+6. Click `Open Anyway` for the blocked app
+7. Run the app again and confirm the second prompt if macOS asks again
+8. If macOS still blocks writes to Discord, grant the terminal app the required permission and run again.
 
 ### Windows
 
@@ -106,6 +111,7 @@ git push -u origin main
 
 - If patching fails, check `/tmp/vencord-portable-install.log`
 - If Discord updates and Vencord disappears, run `run.command` again
+- If macOS shows "Apple could not verify ... is free of malware", go to `System Settings` -> `Privacy & Security` and click `Open Anyway`
 - If macOS blocks writes to `/Applications/Discord.app`, grant the terminal app the relevant permission and retry
 - The generated share app is not a zero-setup installer; recipients may still need to approve permissions on their own Mac
 - On Windows, use the official desktop Discord app and rerun `windows/run.cmd` after Discord updates
