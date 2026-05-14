@@ -7,7 +7,7 @@ Keywords: Vencord, Discord, install Vencord, start Discord, macOS, Windows, port
 ## What this repo is for
 
 - Run Vencord against the official Discord desktop app
-- Build the official Vencord Installer CLI from upstream source instead of shipping your personal paths
+- Build the official Vencord Installer CLI from the latest official release tag instead of shipping your personal paths
 - Generate a portable macOS `.app` bundle that refreshes Vencord before launch
 - Provide a Windows launcher script that installs or updates Vencord and then starts Discord
 
@@ -58,7 +58,7 @@ It is especially useful if you were searching for terms like:
 
 1. Clone this repo anywhere outside OneDrive or iCloud syncing folders.
 2. Double-click [`run.command`](./run.command).
-3. The first run may take a few minutes while it clones and builds the official Vencord Installer CLI.
+3. The first run may take a few minutes while it clones and builds the official Vencord Installer CLI release.
 4. If macOS says the app cannot be opened because Apple cannot verify it:
 5. Open `System Settings` -> `Privacy & Security`
 6. Scroll to the Security section
@@ -86,13 +86,16 @@ It is especially useful if you were searching for terms like:
 
 1. Finds the installed official Discord desktop app
 2. Clones or updates the official Vencord Installer source code
-3. Builds the official Vencord Installer CLI locally
-4. Runs the Installer CLI in `repair` mode against Discord
-5. Lets the official Installer CLI download/update Vencord's release `dist` files under `~/Library/Application Support/Vencord/dist`
-6. Requests administrator permission if macOS blocks the normal patch attempt
-7. Verifies Discord was patched with the official Vencord data path before launching Discord
+3. Checks out the official Vencord Installer release tag `v1.4.0`
+4. Builds the official Vencord Installer CLI locally
+5. Runs the Installer CLI in `repair` mode against Discord
+6. Lets the official Installer CLI download/update Vencord's release `dist` files under `~/Library/Application Support/Vencord/dist`
+7. Requests administrator permission if macOS blocks the normal patch attempt
+8. Verifies Discord was patched with the official Vencord data path before launching Discord
 
 The generated macOS share app follows the official Vencord Installer layout. It does not bundle a fixed `Vencord/dist` folder and it does not use a private dev-install path. This avoids the old problem where a stale bundled build or personal absolute path could stop working after Discord or Vencord changed.
+
+The launcher intentionally builds from the latest official Vencord Installer release tag instead of the upstream `main` branch. This avoids breakage when upstream development code is temporarily not buildable. Advanced users can override the tag with `VENCORD_INSTALLER_TAG`.
 
 After the first successful run, source code is cached under:
 

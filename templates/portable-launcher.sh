@@ -13,6 +13,7 @@ LOG_FILE="/tmp/vencord-portable-install.log"
 
 INSTALLER_REPO="$SRC_DIR/Installer"
 INSTALLER_CLI="$BUILD_DIR/vencord-installer-cli"
+INSTALLER_TAG="${VENCORD_INSTALLER_TAG:-v1.4.0}"
 DISCORD_RESOURCES="$DISCORD_APP/Contents/Resources"
 ADMIN_PATCH_SCRIPT="$BUILD_DIR/admin-patch.sh"
 
@@ -35,15 +36,15 @@ show_failure_alert() {
     osascript -e 'display alert "Vencord install failed" message "See /tmp/vencord-portable-install.log. Make sure git and go are installed. If macOS asks for administrator permission, approve it so Discord can be patched." as critical' >/dev/null 2>&1 || true
 }
 
-clone_or_update() {
+checkout_installer_source() {
     local repo_url="$1"
     local repo_dir="$2"
     local repo_name="$3"
 
     if [[ -d "$repo_dir/.git" ]]; then
-        info "Updating $repo_name"
-        if ! git -C "$repo_dir" pull --ff-only; then
-            info "Could not update $repo_name; using cached source"
+        info "Updating $repo_name tags"
+        if ! git -C "$repo_dir" fetch --tags --force origin; then
+            info "Could not refresh $repo_name tags; using cached source"
         fi
     elif [[ -e "$repo_dir" ]]; then
         echo "$repo_dir exists but is not a git repository" >&2
@@ -52,6 +53,9 @@ clone_or_update() {
         info "Cloning $repo_name"
         git clone "$repo_url" "$repo_dir"
     fi
+
+    info "Using $repo_name $INSTALLER_TAG"
+    git -C "$repo_dir" -c advice.detachedHead=false checkout --force "$INSTALLER_TAG"
 }
 
 close_discord() {
@@ -111,7 +115,7 @@ main() {
 
     notify
 
-    clone_or_update "https://github.com/Vencord/Installer.git" "$INSTALLER_REPO" "Vencord Installer"
+    checkout_installer_source "https://github.com/Vencord/Installer.git" "$INSTALLER_REPO" "Vencord Installer"
 
     info "Building Installer CLI"
     cd "$INSTALLER_REPO"

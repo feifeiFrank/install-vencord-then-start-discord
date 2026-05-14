@@ -13,6 +13,7 @@ LOG_FILE="/tmp/vencord-portable-install.log"
 
 INSTALLER_REPO="$SRC_DIR/Installer"
 INSTALLER_CLI="$BUILD_DIR/vencord-installer-cli"
+INSTALLER_TAG="${VENCORD_INSTALLER_TAG:-v1.4.0}"
 DISCORD_APP="/Applications/Discord.app"
 DISCORD_RESOURCES="$DISCORD_APP/Contents/Resources"
 
@@ -27,15 +28,20 @@ need_cmd() {
     }
 }
 
-clone_or_update() {
+checkout_installer_source() {
     local repo_url="$1"
     local repo_dir="$2"
 
     if [[ -d "$repo_dir/.git" ]]; then
-        git -C "$repo_dir" pull --ff-only
+        if ! git -C "$repo_dir" fetch --tags --force origin; then
+            info "Could not refresh Vencord Installer tags; using cached source"
+        fi
     else
         git clone "$repo_url" "$repo_dir"
     fi
+
+    info "Using Vencord Installer $INSTALLER_TAG"
+    git -C "$repo_dir" -c advice.detachedHead=false checkout --force "$INSTALLER_TAG"
 }
 
 is_discord_patched() {
@@ -54,7 +60,7 @@ need_cmd go
 mkdir -p "$SRC_DIR" "$BUILD_DIR" "$VENCORD_DATA_DIR"
 
 info "Updating Installer sources"
-clone_or_update "https://github.com/Vencord/Installer.git" "$INSTALLER_REPO"
+checkout_installer_source "https://github.com/Vencord/Installer.git" "$INSTALLER_REPO"
 
 info "Building Installer CLI"
 cd "$INSTALLER_REPO"
